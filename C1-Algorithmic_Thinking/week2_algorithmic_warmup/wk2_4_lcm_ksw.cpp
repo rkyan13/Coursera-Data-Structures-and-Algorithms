@@ -15,8 +15,8 @@ long long lcm_naive(int a, int b) {
 }
 
 
-int gcd_euclidean(int a, int b) {
-  int gcd, low, high, remainder ;
+long long int gcd_euclidean(int a, int b) {
+  long long int gcd, low, high, remainder ;
 
   if (a > b) {
     high =  a;
@@ -37,13 +37,16 @@ int gcd_euclidean(int a, int b) {
   return gcd;
 }
 
+
 long long lcm_fast(int a, int b) {
   long long int lcm;
-  lcm = (long long int)(a*b)/gcd_euclidean(a, b);
+  long long int gcd = gcd_euclidean(a, b);
+  lcm = (long long)a*b/gcd ; //Note lcm = (long long)(a*b)/gcd ; causes overflow error. this syntax is wrong
   return lcm;
 }
 
-void test_solution(){
+
+void stress_test_solution(){
   assert(lcm_naive(239,797) ==lcm_fast(239,797));
   assert(lcm_naive(969,1609)==lcm_fast(969,1609));
   for(int i =0; i<20; i++){
@@ -56,8 +59,9 @@ void test_solution(){
 int main() {
   int a, b;
   cin >> a >> b;
-  cout<<lcm_naive(a,b) << endl;
   cout<<lcm_fast(a,b)  << endl;
-  test_solution();
+  //ksw: Comment following 2 lines before submission
+  cout<<lcm_naive(a,b) << endl;
+  stress_test_solution();
   return 0;
 }
