@@ -28,7 +28,7 @@ It will not work for m=45 which has a pisano period >92
 
 using namespace std;
 
-int DEBUG = 1;
+int DEBUG = 0;
 
 
 
@@ -50,6 +50,7 @@ long long get_fibonacci_huge_naive(int n, int m) {
 
 
 /*---------------------- All the functions and helper functions for get_fibonacci_remainder_fast ----------------------*/
+
 long long int fibonacci_fast(int n) {
     // write your code here
     if (n <= 1)
@@ -64,7 +65,6 @@ long long int fibonacci_fast(int n) {
 
     return fibVect[n];
 }//eof fibonacci_fast
-
 
 
 int get_pisano_period(int m){
@@ -98,44 +98,15 @@ int get_pisano_period(int m){
 }//eof get_pisano_period
 
 
-int get_pisano_period2(int m){
-  if(m<=2)
-    return 3;
-
-  int a = 0;
-  int b = 1;
-  int i = 2;
-  int period_repeat = 0;
-
-  while(period_repeat == 0){
-      a = b;
-      b = (int)(fibonacci_fast(i)%m);
-
-      if(DEBUG ==1) {
-        if(i >85 && i <95)
-            cout<<"i ="<<i<<", fib = "<<fibonacci_fast(i)<<", a = "<<a<<", b = "<<b<<endl;
-      }
-
-      i++;
-      if (a==0 && b==1)
-          period_repeat = 1;
-  }//eof while loop
-
-  int pisano_period = (int)i-2;
-  return pisano_period ;
-
-}//eof get_pisano_period
-
-
-int get_fibonacci_remainder_fast(int n, int m){
-  int pisano_of_m                   = get_pisano_period2(m);
+long long int get_fibonacci_remainder_fast(long long n, long long m){
+  long long pisano_of_m                 = get_pisano_period(m);
   if(DEBUG ==1) {
       cout <<"Pisano Period of "<<m<<" = "<<pisano_of_m<<endl;
   }
 
-  int           effective_fibonacci_idx = n % pisano_of_m ;
+  long long int effective_fibonacci_idx = n % pisano_of_m ;
   long long int effective_fibonacci     = fibonacci_fast(effective_fibonacci_idx);
-  int           remainder               = (int)effective_fibonacci%m;
+  long long int           remainder     = effective_fibonacci%m;
 
   return remainder;
 }
