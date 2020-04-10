@@ -45,7 +45,7 @@ long long int fibonacci_fast(int n) {
     return fibVect[n];
 }
 
-void test_solution() {
+void stress_test_solution() {
     assert(fibonacci_fast(3) == 2);
     assert(fibonacci_fast(10) == 55);
     for (int n = 0; n < 20; ++n)
@@ -55,10 +55,9 @@ void test_solution() {
 int main() {
     int n = 0;
     cin >> n;
-
-    cout << fibonacci_naive(n) << '\n';
-    test_solution();
     cout << fibonacci_fast(n) << '\n';
-
+    //ksw: Comment following 2 lines before submission
+    cout << fibonacci_naive(n) << '\n';
+    stress_test_solution();
     return 0;
 }
