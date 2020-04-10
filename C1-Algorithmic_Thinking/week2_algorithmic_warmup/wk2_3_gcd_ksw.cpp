@@ -42,7 +42,7 @@ int gcd_euclidean(int a, int b) {
 
 
 
-void test_solution(){
+void stress_test_solution(){
   assert(gcd_naive(239,797)==gcd_euclidean(239,797));
   assert(gcd_naive(969,323)==gcd_euclidean(323,969));
 
@@ -60,9 +60,9 @@ void test_solution(){
 int main() {
   int a, b;
   cin >> a >> b;
-
   cout << gcd_euclidean(a, b) << std::endl;
-  //cout << gcd_naive(a, b) << std::endl;
-  //test_solution();
+  //ksw: Comment following 2 lines before submission
+  cout << gcd_naive(a, b) << std::endl;
+  stress_test_solution();
   return 0;
 }
