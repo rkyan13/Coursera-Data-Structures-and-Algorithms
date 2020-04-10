@@ -38,7 +38,7 @@ int get_fibonacci_last_digit_fast(int n){
 }
 
 
-void test_solution(){
+void stress_test_solution(){
   assert(get_fibonacci_last_digit_naive(3)==2);
   assert(get_fibonacci_last_digit_fast(5) ==5);
   for(int i =0; i<=20; i++) {
@@ -50,11 +50,9 @@ void test_solution(){
 int main() {
     int n;
     std::cin >> n;
-
-    //cout << get_fibonacci_last_digit_naive(n) << '\n';
     cout << get_fibonacci_last_digit_fast(n) << '\n';
-    //test_solution();
-
+    //ksw: Comment following 2 lines before submission
+    cout << get_fibonacci_last_digit_naive(n) << '\n';
+    stress_test_solution();
     return 0;
-
     }
