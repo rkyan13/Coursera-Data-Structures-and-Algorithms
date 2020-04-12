@@ -4,6 +4,13 @@
 #include <stdlib.h> //for rand
 using namespace std;
 
+/*
+The c++ index goes only from 0 to n-1.
+but Note that the fibonacci numbers are from idx 0 to n (n inclusive).
+so in the fibonacci for-loop/for-loops check until n+1
+*/
+
+
 const int PISANO_OF_10 = 60;
 
 long long fib_partial_sum_last_digit_naive(long long from, long long to) {

@@ -4,6 +4,13 @@
 
 using namespace std;
 
+/*
+The c++ index goes only from 0 to n-1.
+but Note that the fibonacci numbers are from idx 0 to n (n inclusive).
+so in the fibonacci for-loop/for-loops check until n+1
+*/
+
+
 int gcd_naive(int a, int b) {
   int current_gcd = 1;
   for (int d = 2; d <= a && d <= b; d++) {

@@ -22,6 +22,11 @@ n = 92. fibonacci(92) =  7540113804746346429 : no overflow
 n = 93. fibonacci(93) = -6246583658587674878 : overflow
 */
 
+/*
+The c++ index goes only from 0 to n-1.
+but Note that the fibonacci numbers are from idx 0 to n (n inclusive).
+so in the fibonacci for-loop/for-loops check until n+1
+*/
 
 long long int fibonacci_naive(int n) {
     if (n <= 1)

@@ -10,14 +10,16 @@ iii) effectiive_fibonacci = fib(effective_fibonacci_idx)
 iv)  n%m = effectiive_fibonacci%m
 
 
-/*
 Note maximum fibonacci number than can be dealt with is n = 92
 n = 92. fibonacci(92) =  7540113804746346429 : no overflow
 n = 93. fibonacci(93) = -6246583658587674878 : overflow
-
-
 Also this code will only work for 'm' that have a pisano period of less than 92.
 It will not work for m=45 which has a pisano period >92
+
+
+The c++ index goes only from 0 to n-1.
+but Note that the fibonacci numbers are from idx 0 to n (n inclusive).
+so in the fibonacci for-loop/for-loops check until n+1
 */
 
 
