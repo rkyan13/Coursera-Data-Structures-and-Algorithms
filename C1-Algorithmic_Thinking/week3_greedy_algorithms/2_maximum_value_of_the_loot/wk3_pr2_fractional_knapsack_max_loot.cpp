@@ -1,13 +1,55 @@
+/*
+
+DEbug case to check
+
+3 50
+60000.23 22.21
+12458963.23 50.25
+5689748.56 30.8
+-------
+
+output
+-------
+ i = 0 :,val_per_wt[i]2701.5 :, j = 0 :,val_per_wt[j] = 2701.5
+-------
+ i = 0 :,val_per_wt[i]2701.5 :, j = 1 :,val_per_wt[j] = 247940
+swapping
+-------
+ i = 0 :,val_per_wt[i]247940 :, j = 2 :,val_per_wt[j] = 184732
+-------
+ i = 1 :,val_per_wt[i]2701.5 :, j = 1 :,val_per_wt[j] = 2701.5
+-------
+ i = 1 :,val_per_wt[i]2701.5 :, j = 2 :,val_per_wt[j] = 184732
+swapping
+-------
+ i = 2 :,val_per_wt[i]2701.5 :, j = 2 :,val_per_wt[j] = 2701.5
+idx_tracker sorted indices
+1 2 0
+Bag Capacity Reached @ sorted index = 0
+Item# 	Value 	Weight 	VpW 	wt_knapsack  	valu_knapsack
+1	12458963.23	50.25	247939.57	50.00		12396978.34
+------------ Below Items Not in Knapsack -------------
+2	5689748.56	30.80	184732.10	0.00		0.00
+0	60000.23	22.21	2701.50	0.00		0.00
+bag_value = 12396978.34
+12396978.3383084573
+
+
+
+*/
+
+
+
 #include <iostream>
 #include <vector>
 #include <numeric> //for accumulate function
 #include <iomanip> //for cout<<setprecision
 
 using namespace std;
-const int DEBUG = 1;
-const int INTERACTIVE = 1;
+const int DEBUG = 0;
+const int INTERACTIVE = 0;
 
-void swap(int i, int j, vector<int> &vec2_sort){
+void swap_idx(int i, int j, vector<int> &vec2_sort){
   int temp_variable;
   temp_variable = vec2_sort[i];
   vec2_sort[i]  = vec2_sort[j];
@@ -26,10 +68,23 @@ vector <int> sort_vect(vector <double> val_per_wt){
   }
 
  //Sort the index tracker array elements based on the val_per_wt array
+ double temp_variable;
   for(int i = 0 ; i <num_items_in_list; i++) {
     for(int j =i; j<num_items_in_list; j++){
-      if(val_per_wt[i]<val_per_wt[j])
-         swap(i,j,idx_tracker);
+      //cout<<"------- \n";
+      //cout<<" i = "<<i<<" :,val_per_wt[i]"<<val_per_wt[i]<<" :, j = "<<j<<" :,val_per_wt[j] = "<<val_per_wt[j]<<endl;
+      if(val_per_wt[i]<val_per_wt[j]){
+         //cout<<"swapping"<<endl;
+
+         //swap idx_tracker
+         swap_idx(i,j,idx_tracker);
+
+         //swap the values too to continue the sort properly
+         //NOTE: (this is a local change, wont reflect globally in value_per_wt)
+         temp_variable = val_per_wt[i];
+         val_per_wt[i]  = val_per_wt[j];
+         val_per_wt[j]  = temp_variable;
+      }
     }//eof j loop
   }//eof i loop
 
@@ -78,14 +133,18 @@ double get_optimal_value(double bag_wt_capacity, vector<double> weights, vector<
           wt_in_knapsack[i]      = wt_2add;
           value_in_knapsack[i]   = wt_2add*value_per_unit_weight[idx_concerned] ;
           remaining_bag_capacity -= wt_2add ;
+          //cout<<"i = "<<i<<" , remaining_bag_capacity ="<<remaining_bag_capacity<<endl;
       }//eof if(remaining_bag_capacity>0)
-      else {
+
+
+      if(remaining_bag_capacity==0) {
         if(INTERACTIVE == 1){
           cout <<"Bag Capacity Reached @ sorted index = " <<i<<endl;
         }
-        num_items_in_knapsack = i;
+        num_items_in_knapsack = i+1;
         break;
       }
+
   }//eof for(int i =0; i<num_items_in_list; i++)
 
   bag_value = accumulate(value_in_knapsack.begin(), value_in_knapsack.end(), 0.0);
